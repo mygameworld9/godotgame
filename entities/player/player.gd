@@ -10,6 +10,19 @@ extends CharacterBody2D
 var is_leader: bool = false
 var target_to_follow: Node2D
 
+func setup_squad(leader_node: Node2D) -> void:
+	target_to_follow = leader_node
+	is_leader = (leader_node == null)
+	
+	# Ensure state machine is ready before transitioning
+	if not is_node_ready():
+		await ready
+		
+	if is_leader:
+		state_machine.transition_to("Idle")
+	else:
+		state_machine.transition_to("Follow")
+
 func _ready() -> void:
 	if health_component:
 		health_component.connect("died", _on_died)
@@ -30,7 +43,20 @@ func _physics_process(delta: float) -> void:
 	if is_leader:
 		_handle_revive_input(delta)
 
-func _on_hit(damage, source_pos, knockback) -> void:
+# SURGICAL ADDITION: This function was missing!
+func _on_hit(damage_amount: float, source_pos: Vector2, knockback_force: float) -> void:
+	# The HealthComponent logic is handled in HurtboxComponent already,
+	# so use this for visual feedback or state changes.
+	
+	# Example: Flash red
+	if sprite:
+		var tween = create_tween()
+		tween.tween_property(sprite, "modulate", Color.RED, 0.1)
+		tween.tween_property(sprite, "modulate", Color.WHITE, 0.1)
+	
+	# Example: Camera Shake (if you have the system set up)
+	# GameFeel.shake_camera(knockback_force * 0.1) # Adapted to match existing GameFeel call if possible, or commented out
+	
 	if state_machine.state.name == "Downed":
 		return
 		

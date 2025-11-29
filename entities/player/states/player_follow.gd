@@ -1,3 +1,4 @@
+class_name PlayerFollowState
 extends State
 
 var player: Player
