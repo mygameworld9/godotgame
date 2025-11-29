@@ -1,4 +1,4 @@
-class_name Orc
+class_name Archer
 extends CharacterBody2D
 
 @onready var sprite = $Sprite2D
@@ -6,21 +6,20 @@ extends CharacterBody2D
 @onready var state_machine = $StateMachine
 @onready var velocity_component = $VelocityComponent
 @onready var health_component = $HealthComponent
-@onready var hitbox_component = $HitboxComponent
 
-# Target to chase (usually the player)
 var target: Node2D
 
 func _ready() -> void:
-	# For now, find the player in the scene tree. 
 	target = get_tree().get_first_node_in_group("player")
 	
 	health_component.connect("died", _on_died)
 	$HurtboxComponent.connect("hit", _on_hit)
 
+func _physics_process(delta: float) -> void:
+	if velocity.x != 0:
+		sprite.flip_h = velocity.x < 0
+
 func _on_died() -> void:
-	state_machine.transition_to("Death") # We need a Death state or just play anim here
-	# For simplicity, let's just play animation and disable processing
 	set_physics_process(false)
 	velocity_component.velocity = Vector2.ZERO
 	animation_player.play("death")
@@ -29,4 +28,7 @@ func _on_died() -> void:
 
 func _on_hit(damage, source_pos, knockback) -> void:
 	if state_machine.state.name != "Attack":
-		state_machine.transition_to("Hurt")
+		animation_player.play("hurt")
+		await animation_player.animation_finished
+		if state_machine.state.name != "Attack":
+			state_machine.transition_to("Idle")

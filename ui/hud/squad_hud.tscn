@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://ui/hud/squad_hud.gd" id="1_script"]
+
+[node name="SquadHUD" type="CanvasLayer"]
+script = ExtResource("1_script")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 340.0
+offset_bottom = 60.0
+theme_override_constants/separation = 10

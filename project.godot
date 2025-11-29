@@ -15,6 +15,13 @@ run/main_scene="res://scenes/main.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+GameFeel="*res://systems/game_feel.gd"
+Events="*res://systems/events.gd"
+SquadManager="*res://systems/squad_manager.gd"
+CameraSystem="*res://systems/camera_system.gd"
+
 [display]
 
 window/stretch/mode="viewport"

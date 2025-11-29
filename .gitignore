@@ -2,7 +2,6 @@
 .godot/
 *.translation
 *.tres
-*.tscn
 
 # Godot-specific ignores (optional, but recommended)
 export_presets.cfg

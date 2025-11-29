@@ -8,6 +8,11 @@ func enter(_msg := {}) -> void:
 func physics_update(delta: float) -> void:
 	super.physics_update(delta)
 	
+	if not player.is_leader:
+		if player.target_to_follow:
+			state_machine.transition_to("Follow")
+		return
+	
 	if Input.is_action_just_pressed("ui_accept"):
 		state_machine.transition_to("Attack")
 		return
