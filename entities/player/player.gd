@@ -11,8 +11,16 @@ var is_leader: bool = false
 var target_to_follow: Node2D
 
 func _ready() -> void:
-	health_component.connect("died", _on_died)
-	$HurtboxComponent.connect("hit", _on_hit)
+	if health_component:
+		health_component.connect("died", _on_died)
+	else:
+		push_error("HealthComponent missing in " + name)
+		
+	var hurtbox = get_node_or_null("HurtboxComponent")
+	if hurtbox:
+		hurtbox.connect("hit", _on_hit)
+	else:
+		push_error("HurtboxComponent missing in " + name)
 
 var revive_timer: float = 0.0
 var revive_target: Player = null
@@ -21,6 +29,16 @@ const REVIVE_DURATION: float = 3.0
 func _physics_process(delta: float) -> void:
 	if is_leader:
 		_handle_revive_input(delta)
+
+func _on_hit(damage, source_pos, knockback) -> void:
+	if state_machine.state.name == "Downed":
+		return
+		
+	if state_machine.state.name != "Attack":
+		animation_player.play("hurt")
+		await animation_player.animation_finished
+		if state_machine.state.name != "Attack" and state_machine.state.name != "Downed":
+			state_machine.transition_to("Idle")
 
 func _on_died() -> void:
 	state_machine.transition_to("Downed")
@@ -48,10 +66,13 @@ func _handle_revive_input(delta: float) -> void:
 		revive_target = null
 
 func _find_downed_teammate() -> Player:
+	# FIX: Safety check for InteractionArea to prevent crash if node is missing
+	if not has_node("InteractionArea"):
+		return null
+
 	var bodies = $InteractionArea.get_overlapping_bodies()
 	for body in bodies:
 		if body is Player and body != self:
 			if body.state_machine.state.name == "Downed":
 				return body
 	return null
-

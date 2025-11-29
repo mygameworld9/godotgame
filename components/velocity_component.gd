@@ -19,3 +19,7 @@ func decelerate(delta: float) -> void:
 func move(character_body: CharacterBody2D) -> void:
 	character_body.velocity = velocity
 	character_body.move_and_slide()
+	
+	# FIX: Sync internal velocity with the result of physical collision
+	# This ensures wall sliding and collision stops are respected in the next frame
+	velocity = character_body.velocity
