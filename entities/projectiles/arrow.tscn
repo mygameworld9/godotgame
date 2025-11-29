@@ -13,10 +13,20 @@ script = ExtResource("1_script")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_sprite")
 
+[node name="Trail" type="CPUParticles2D" parent="."]
+amount = 8
+lifetime = 0.3
+local_coords = false
+gravity = Vector2(0, 0)
+scale_amount_min = 2.0
+scale_amount_max = 2.0
+color = Color(1, 1, 1, 0.5)
+
 [node name="HitboxComponent" type="Area2D" parent="."]
 script = ExtResource("3_hitbox")
 damage = 5.0
 knockback_force = 100.0
+team = "enemy"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent"]
 shape = SubResource("CircleShape2D_hitbox")

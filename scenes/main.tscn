@@ -1,4 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://hidf6po1hnlv"]
+[gd_scene load_steps=6 format=3 uid="uid://hidf6po1hnlv"]
+
+[ext_resource type="PackedScene" uid="uid://bgcv3t2nyl02l" path="res://entities/player/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://brjwhneobow0w" path="res://entities/enemies/orc/orc.tscn" id="2_orc"]
+[ext_resource type="PackedScene" path="res://ui/hud/squad_hud.tscn" id="3_hud"]
+[ext_resource type="PackedScene" path="res://entities/allies/priest/priest.tscn" id="4_priest"]
 
 [sub_resource type="GDScript" id="GDScript_camera"]
 script/source = "extends Camera2D
@@ -7,11 +12,6 @@ func _ready() -> void:
 	GameFeel.register_camera(self)
 	CameraSystem.register_camera(self)
 "
-
-[ext_resource type="PackedScene" path="res://entities/player/player.tscn" id="1_player"]
-[ext_resource type="PackedScene" path="res://entities/enemies/orc/orc.tscn" id="2_orc"]
-[ext_resource type="PackedScene" path="res://ui/hud/squad_hud.tscn" id="3_hud"]
-[ext_resource type="PackedScene" path="res://entities/allies/priest/priest.tscn" id="4_priest"]
 
 [node name="Main" type="Node2D"]
 

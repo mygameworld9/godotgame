@@ -8,11 +8,17 @@ var character: CharacterBody2D
 
 func setup(char_node: CharacterBody2D) -> void:
 	character = char_node
-	character.health_component.connect("health_changed", _on_health_changed)
-	
-	# Initial update
-	health_bar.max_value = character.health_component.max_health
-	health_bar.value = character.health_component.current_health
+	if not character:
+		push_error("CharacterStatus setup called with null character")
+		return
+		
+	if character.get("health_component"):
+		character.health_component.connect("health_changed", _on_health_changed)
+		# Initial update
+		health_bar.max_value = character.health_component.max_health
+		health_bar.value = character.health_component.current_health
+	else:
+		push_error("Character " + character.name + " missing health_component")
 	
 	# Connect to SquadManager to check leader status? 
 	# Or check in process?

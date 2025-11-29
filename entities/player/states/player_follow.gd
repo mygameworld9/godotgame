@@ -20,7 +20,7 @@ func physics_update(delta: float) -> void:
 	
 	if distance > 60.0: # Follow distance
 		var direction = (player.target_to_follow.global_position - player.global_position).normalized()
-		player.velocity_component.accelerate_to_player(direction)
+		player.velocity_component.accelerate_in_direction(direction, delta)
 		player.velocity_component.move(player)
 		
 		# Flip sprite
@@ -30,7 +30,7 @@ func physics_update(delta: float) -> void:
 		# Close enough, stop and idle (but stay in Follow state or switch to Idle?)
 		# Switching to Idle might cause immediate transition back if logic isn't careful.
 		# Let's just decelerate here.
-		player.velocity_component.decelerate(0.2)
+		player.velocity_component.decelerate(delta)
 		if player.velocity.length() < 10:
 			player.animation_player.play("idle")
 		else:
