@@ -20,6 +20,6 @@ func move(character_body: CharacterBody2D) -> void:
 	character_body.velocity = velocity
 	character_body.move_and_slide()
 	
-	# FIX: Sync internal velocity with the result of physical collision
-	# This ensures wall sliding and collision stops are respected in the next frame
+	# SURGICAL FIX: Update internal velocity to match physics result
+	# This prevents the player from "sticking" to walls
 	velocity = character_body.velocity

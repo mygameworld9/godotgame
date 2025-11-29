@@ -261,7 +261,7 @@ position = Vector2(0, 1)
 texture = ExtResource("2_shadow")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_idle")
+texture = ExtResource("4_attack")
 hframes = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
