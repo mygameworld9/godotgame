@@ -1,0 +1,20 @@
+# Godot 4+ specific ignores
+.godot/
+*.translation
+*.tres
+*.tscn
+
+# Godot-specific ignores (optional, but recommended)
+export_presets.cfg
+
+# Imported assets (automatically generated)
+*.import
+
+# Mono-specific ignores
+.mono/
+data_*/
+mono_crash.*.json
+
+# System specific
+.DS_Store
+Thumbs.db

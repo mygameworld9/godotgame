@@ -1,0 +1,12 @@
+<svg width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+  <!-- Grass -->
+  <rect x="0" y="0" width="32" height="32" fill="#4caf50" />
+  <!-- Dirt -->
+  <rect x="32" y="0" width="32" height="32" fill="#795548" />
+  <!-- Water -->
+  <rect x="0" y="32" width="32" height="32" fill="#2196f3" />
+  <!-- Wall -->
+  <rect x="32" y="32" width="32" height="32" fill="#607d8b" />
+  <!-- Grid lines for 16x16 reference -->
+  <path d="M16 0 V64 M32 0 V64 M48 0 V64 M0 16 H64 M0 32 H64 M0 48 H64" stroke="rgba(0,0,0,0.2)" fill="none"/>
+</svg>
